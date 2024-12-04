@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using InputKit.Handlers;
+using Microsoft.Extensions.Logging;
 using MyShopList.Contexts;
+using UraniumUI;
 
 namespace MyShopList
 {
@@ -10,6 +12,12 @@ namespace MyShopList
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseUraniumUI()
+                .UseUraniumUIMaterial()
+                .ConfigureMauiHandlers(handlers =>
+                {
+                    handlers.AddInputKitHandlers();
+                })
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("Inter-Regular.ttf", "InterRegular");

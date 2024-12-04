@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using MyShopList.Contexts;
 
 namespace MyShopList
 {
@@ -16,8 +17,10 @@ namespace MyShopList
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
+
+            builder.Services.AddDbContext<DataContext>();
 
             return builder.Build();
         }

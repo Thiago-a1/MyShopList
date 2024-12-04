@@ -1,4 +1,5 @@
-﻿using InputKit.Handlers;
+﻿using CommunityToolkit.Maui;
+using InputKit.Handlers;
 using Microsoft.Extensions.Logging;
 using MyShopList.Contexts;
 using UraniumUI;
@@ -12,6 +13,7 @@ namespace MyShopList
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .UseUraniumUI()
                 .UseUraniumUIMaterial()
                 .ConfigureMauiHandlers(handlers =>

@@ -53,4 +53,10 @@
 		<PackageReference Include="UraniumUI.Material" Version="2.9.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="Pages\ShoppingListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

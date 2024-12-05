@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="MyShopList.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MyShopList"
-    Shell.FlyoutBehavior="Disabled"
-    Title="MyShopList">
+<Shell x:Class="MyShopList.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:pages="clr-namespace:MyShopList.Pages"
+       Shell.FlyoutBehavior="Disabled"
+       Shell.BackgroundColor="{AppThemeBinding Light={StaticResource White}, 
+                                               Dark={StaticResource OffBlack}}">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <ShellContent ContentTemplate="{DataTemplate pages:ShoppingListPage}"
+                  Route="MainPage" />
 
 </Shell>

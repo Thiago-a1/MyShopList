@@ -2,6 +2,9 @@
 using InputKit.Handlers;
 using Microsoft.Extensions.Logging;
 using MyShopList.Contexts;
+using MyShopList.Models.ViewModels;
+using MyShopList.Pages;
+using MyShopList.Sevices;
 using UraniumUI;
 
 namespace MyShopList
@@ -31,6 +34,12 @@ namespace MyShopList
 #endif
 
             builder.Services.AddDbContext<DataContext>();
+
+            builder.Services.AddSingleton<ShoppingListPage>();
+
+            builder.Services.AddSingleton<ShoppingListViewModel>();
+
+            builder.Services.AddSingleton<IShoppingListService, ShoppingListService>();
 
             return builder.Build();
         }

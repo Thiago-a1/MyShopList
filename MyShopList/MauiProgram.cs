@@ -2,6 +2,7 @@
 using InputKit.Handlers;
 using Microsoft.Extensions.Logging;
 using MyShopList.Contexts;
+using MyShopList.Controls;
 using MyShopList.Models.ViewModels;
 using MyShopList.Pages;
 using MyShopList.Sevices;
@@ -36,6 +37,8 @@ namespace MyShopList
             builder.Services.AddDbContext<DataContext>();
 
             builder.Services.AddSingleton<ShoppingListPage>();
+
+            builder.Services.AddTransient<ShoppingListPopup>();
 
             builder.Services.AddSingleton<ShoppingListViewModel>();
 

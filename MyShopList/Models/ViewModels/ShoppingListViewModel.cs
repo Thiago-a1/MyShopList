@@ -22,10 +22,7 @@ public partial class ShoppingListViewModel : ObservableObject
     {
         _shoppingListService = ServiceHelper.GetService<IShoppingListService>();
 
-        Lists.Add(new ShoppingList("Mercado"));
-        Lists.Add(new ShoppingList("Farmacia"));
-
-        //LoadLists();
+        LoadLists();
     }
 
     [RelayCommand]

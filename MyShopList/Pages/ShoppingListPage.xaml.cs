@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Views;
+using MyShopList.Controls;
 using MyShopList.Models;
 using MyShopList.Models.ViewModels;
 
@@ -28,6 +30,8 @@ public partial class ShoppingListPage : ContentPage
 
     private void NewList_Button_Clicked(object sender, EventArgs e)
     {
+        var popup = new ShoppingListPopup(_shoppingListViewModel);
 
+        this.ShowPopupAsync(popup);
     }
 }

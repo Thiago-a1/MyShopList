@@ -38,7 +38,7 @@
                     <DataTemplate x:DataType="{x:Type models:ShoppingList}">
                         <SwipeView>
                             <SwipeView.RightItems>
-                                <SwipeItem BackgroundColor="{StaticResource DarkRed}"
+                                <SwipeItem BackgroundColor="Transparent"
                                            Clicked="SwipeItem_Clicked">
                                     <SwipeItem.IconImageSource>
                                         <FileImageSource File="delete.png" />

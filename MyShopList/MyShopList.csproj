@@ -54,6 +54,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Controls\ShoppingListPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\ShoppingListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

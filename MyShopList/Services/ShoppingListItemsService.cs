@@ -12,6 +12,7 @@ public class ShoppingListItemsService : IShoppingListItemsService
     {
         _context = ServiceHelper.GetService<DataContext>();
     }
+
     public async Task<List<ShoppingListItem>> GetListItems(Guid ListId)
     {
         var response = await _context.ShoppingListItems
@@ -22,7 +23,7 @@ public class ShoppingListItemsService : IShoppingListItemsService
         return response;
     }
 
-    public async Task<ShoppingListItem> CreateListItems(ShoppingListItem shoppingListItem)
+    public async Task<ShoppingListItem?> CreateListItem(ShoppingListItem shoppingListItem)
     {
         var listItem = new ShoppingListItem(shoppingListItem.Name,
                                             shoppingListItem.Amount,
@@ -35,14 +36,36 @@ public class ShoppingListItemsService : IShoppingListItemsService
         return listItem;
     }
 
-    public Task<bool> DeleteListItems(int Id)
+    public async Task<bool> DeleteListItem(int Id)
     {
-        throw new NotImplementedException();
+        var findedItem = await _context.ShoppingListItems.FirstOrDefaultAsync(x => x.Id == Id);
+
+        if (findedItem != null)
+        {
+            _context.ShoppingListItems.Remove(findedItem);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        return false;
     }
 
-
-    public Task<ShoppingListItem> UpdateListItem(ShoppingListItem shoppingListItem)
+    public async Task<ShoppingListItem?> UpdateListItem(ShoppingListItem shoppingListItem)
     {
-        throw new NotImplementedException();
+        var findedItem = await _context.ShoppingListItems.FirstOrDefaultAsync(x => x.Id == shoppingListItem.Id);
+
+        if (findedItem != null)
+        {
+            findedItem.Name = shoppingListItem.Name;
+            findedItem.Amount = shoppingListItem.Amount;
+            findedItem.Price = shoppingListItem.Price;
+
+            await _context.SaveChangesAsync();
+
+            return findedItem;
+        }
+
+        return findedItem;
     }
 }

@@ -17,7 +17,6 @@ public class ShoppingListService : IShoppingListService
     {
         var response = await _context.ShoppingLists
                                      .AsNoTracking()
-                                     .Include(x => x.ShoppingListItems)
                                      .ToListAsync();
 
         return response;

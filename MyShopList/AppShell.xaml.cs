@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using MyShopList.Pages;
 
 namespace MyShopList
 {
@@ -8,6 +9,8 @@ namespace MyShopList
         public AppShell()
         {
             InitializeComponent();
+
+            Routing.RegisterRoute(nameof(ShoppingListItemsPage), typeof(ShoppingListItemsPage));
         }
 
         public static async Task DysplaySnackBar(string message, string type)

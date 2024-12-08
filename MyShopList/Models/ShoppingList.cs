@@ -11,7 +11,7 @@ public class ShoppingList
         TotalPrice = 0;
         Created_At = DateTime.Now;
         IsCompleted = false;
-        ShoppingListItems = new List<ShoppingListItems>();
+        ShoppingListItems = new List<ShoppingListItem>();
     }
 
     public Guid Id { get; set; }
@@ -22,5 +22,5 @@ public class ShoppingList
     public DateTime Completed_At { get; set; }
     public bool IsCompleted { get; set; }
 
-    public List<ShoppingListItems> ShoppingListItems { get; set; }
+    public List<ShoppingListItem> ShoppingListItems { get; set; }
 }

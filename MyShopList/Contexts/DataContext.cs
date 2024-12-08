@@ -6,7 +6,7 @@ namespace MyShopList.Contexts;
 public class DataContext : DbContext
 {
     public DbSet<ShoppingList> ShoppingLists { get; set; }
-    public DbSet<ShoppingListItems> ShoppingListItems { get; set; }
+    public DbSet<ShoppingListItem> ShoppingListItems { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

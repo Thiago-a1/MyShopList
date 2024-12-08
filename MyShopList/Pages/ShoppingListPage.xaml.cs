@@ -34,4 +34,21 @@ public partial class ShoppingListPage : ContentPage
 
         this.ShowPopupAsync(popup);
     }
+
+    private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+    {
+        var list = ((Border)sender).BindingContext as ShoppingList;
+
+        if (list == null)
+        {
+            return;
+        }
+
+        Dictionary<string, object> shoppingList = new Dictionary<string, object>
+        {
+            { "ShoppingList", list }
+        };
+
+        await Shell.Current.GoToAsync(nameof(ShoppingListItemsPage), true, shoppingList);
+    }
 }

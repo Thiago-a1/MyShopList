@@ -109,6 +109,10 @@
                                         </Label>
                                     </VerticalStackLayout>
                                 </FlexLayout>
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                                </Border.GestureRecognizers>
                             </Border>
                         </SwipeView>
                     </DataTemplate>

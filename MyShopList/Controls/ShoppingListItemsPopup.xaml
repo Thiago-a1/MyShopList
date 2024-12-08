@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+               xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+               xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
+               xmlns:models="clr-namespace:MyShopList.Models"
+               xmlns:vm="clr-namespace:MyShopList.Models.ViewModels"
+               x:Class="MyShopList.Controls.ShoppingListItemsPopup"
+               x:DataType="vm:ShoppingListItemsViewModel"
+               Color="Transparent"
+               CanBeDismissedByTappingOutsideOfPopup="False">
+
+    <Border WidthRequest="300"
+            BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray600}}"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 12"
+            HorizontalOptions="Center">
+        <input:FormView x:Name="ItemFormView">
+        <VerticalStackLayout>
+            <VerticalStackLayout HeightRequest="60"
+                                 Padding="20"
+                                 VerticalOptions="Center">
+                <Label Text="Novo item"
+                       TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                       FontSize="18"
+                       HorizontalOptions="StartAndExpand"
+                       VerticalOptions="Center" />
+            </VerticalStackLayout>
+            <BoxView HeightRequest="1"
+                     BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, 
+                                                       Dark={StaticResource Gray500}}" />
+
+                <VerticalStackLayout HeightRequest="225"
+                                     Padding="20, 10"
+                                     Spacing="15">
+                    <material:TextField x:Name="ItemNameInput"
+                                        Title="Nome do Produto"
+                                        Text="{Binding Item.Name}"
+                                        AllowClear="True"
+                                        AccentColor="{AppThemeBinding Light={StaticResource Primary}, 
+                                                                      Dark={StaticResource PrimaryDark}}">
+                        <validation:RequiredValidation Message="O nome do produto é obrigatorio." />
+                    </material:TextField>
+
+                    <material:TextField x:Name="ItemAmountInput"
+                                        Title="Quantidade"
+                                        Text="{Binding Item.Amount, StringFormat='{0:F2}'}"
+                                        AllowClear="True"
+                                        AccentColor="{AppThemeBinding Light={StaticResource Primary}, 
+                                                                      Dark={StaticResource PrimaryDark}}"
+                                        Keyboard="Numeric">
+                    </material:TextField>
+
+                    <material:TextField x:Name="ItemPriceInput"
+                                        Title="Preço Unitario"
+                                        Text="{Binding Item.Price, StringFormat='{0:F2}'}"
+                                        AllowClear="True"
+                                        AccentColor="{AppThemeBinding Light={StaticResource Primary}, 
+                                                                      Dark={StaticResource PrimaryDark}}"
+                                        Keyboard="Numeric">
+                    </material:TextField>
+                </VerticalStackLayout>
+                <BoxView HeightRequest="1"
+                     BackgroundColor="{AppThemeBinding Light={StaticResource Gray200},
+                                               Dark={StaticResource Gray500}}" />
+            <VerticalStackLayout HeightRequest="80"
+                                 Padding="20, 15">
+                <FlexLayout JustifyContent="SpaceBetween">
+                    <Button x:Name="SaveItem_Button"
+                            Text="Salvar"
+                            TextColor="{StaticResource White}"
+                            FontAttributes="Bold"
+                            BackgroundColor="Green"
+                            WidthRequest="120" 
+                            CornerRadius="8"
+                            input:FormView.IsSubmitButton="True"
+                            Clicked="SaveItem_Button_Clicked"/>
+                    <Button x:Name="CancelItem_Button"
+                            Text="Cancelar"
+                            TextColor="{StaticResource White}"
+                            FontAttributes="Bold"
+                            BackgroundColor="{StaticResource DarkRed}"
+                            WidthRequest="120" 
+                            CornerRadius="8"
+                            Clicked="CancelItem_Button_Clicked"/>
+                </FlexLayout>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+        </input:FormView>
+    </Border>
+</toolkit:Popup>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MyShopList.Models"
+             xmlns:vm="clr-namespace:MyShopList.Models.ViewModels"
+             x:Class="MyShopList.Pages.ShoppingListItemsPage"
+             x:DataType="vm:ShoppingListItemsViewModel">
+
+    <Shell.TitleView>
+        <FlexLayout JustifyContent="SpaceBetween"
+                    AlignItems="Center">
+            <VerticalStackLayout WidthRequest="150"
+                                 HorizontalOptions="Start"
+                                 VerticalOptions="Center">
+                <Label Text="Data da compra"
+                       TextColor="{AppThemeBinding Light={StaticResource Gray600}, 
+                                                   Dark={StaticResource White}}"
+                       FontSize="14"
+                       FontAttributes="Bold" />
+                <Label Text="Não finalizado"
+                       TextColor="{AppThemeBinding Light={StaticResource Gray600}, 
+                                                   Dark={StaticResource White}}"
+                       FontSize="14"
+                       FontAttributes="Bold">
+                    <Label.Triggers>
+                        <DataTrigger TargetType="Label"
+                                     Binding="{Binding ShoppingList.IsCompleted}"
+                                     Value="true">
+                            <Setter Property="Text"
+                                    Value="{Binding ShoppingList.Completed_At, StringFormat='{0:dd/MM/yyyy}'}" />
+                        </DataTrigger>
+                    </Label.Triggers>
+                </Label>
+            </VerticalStackLayout>
+
+            <Button Text="Finalizar compra"
+                    FontAttributes="Bold"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary},
+                                                      Dark={StaticResource PrimaryDark}}"
+                    WidthRequest="120"
+                    HeightRequest="40"
+                    Margin="0,0,2,0"
+                    Padding="0"
+                    CornerRadius="8" />
+        </FlexLayout>
+    </Shell.TitleView>
+
+    <AbsoluteLayout>
+        <Grid AbsoluteLayout.LayoutBounds="0,0,1,1"
+              AbsoluteLayout.LayoutFlags="All">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+
+            <CollectionView x:Name="AncestorCollectionView"
+                            ItemsSource="{Binding ListItems}"
+                            ItemsLayout="VerticalList"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, 
+                                                              Dark={StaticResource Gray900}}"
+                            SelectionMode="None"
+                            Grid.Row="1">
+                <CollectionView.EmptyView>
+                    <Label Text="Nenhum Item foi criado."
+                           TextColor="{AppThemeBinding Light={StaticResource Gray500}, 
+                                                       Dark={StaticResource White}}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate x:DataType="{x:Type models:ShoppingListItem}">
+                        <SwipeView IsEnabled="{Binding Source={x:Reference AncestorCollectionView}, Path=BindingContext.ShoppingList_Complete, Converter={StaticResource InvertedBoolConverter}}">
+                            <SwipeView.RightItems>
+                                <SwipeItem BackgroundColor="Transparent"
+                                           Clicked="SwipeItem_Clicked">
+                                    <SwipeItem.IconImageSource>
+                                        <FileImageSource File="delete.png" />
+                                    </SwipeItem.IconImageSource>
+                                </SwipeItem>
+                            </SwipeView.RightItems>
+
+                            <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, 
+                                                                      Dark={StaticResource Gray600}}"
+                                    Padding="8"
+                                    Margin="2"
+                                    StrokeThickness="{AppThemeBinding Light='1', Dark='0'}"
+                                    StrokeShape="RoundRectangle 4">
+                                <FlexLayout Direction="Row"
+                                            JustifyContent="SpaceBetween">
+                                    <VerticalStackLayout WidthRequest="160"
+                                                         Spacing="2">
+                                        <Label Text="Produto"
+                                               FontSize="12"
+                                               TextColor="{AppThemeBinding Light={StaticResource Gray600}, 
+                                                                           Dark={StaticResource White}}" />
+                                        <Label Text="{Binding Name}"
+                                               FontAttributes="Bold" />
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Spacing="2">
+                                        <Label Text="Quantidade"
+                                               FontSize="12"
+                                               TextColor="{AppThemeBinding Light={StaticResource Gray600}, 
+                                                                           Dark={StaticResource White}}" />
+                                        <Label Text="{Binding Amount, StringFormat='{0:F2}'}"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="End" />
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout Spacing="2">
+                                        <Label Text="Preço Unitario"
+                                               FontSize="12"
+                                               TextColor="{AppThemeBinding Light={StaticResource Gray600}, 
+                                                                           Dark={StaticResource White}}" />
+                                        <Label Text="{Binding Price, StringFormat='{0:C2}'}"
+                                               FontAttributes="Bold"
+                                               HorizontalOptions="End"
+                                               Margin="1, 0" />
+                                    </VerticalStackLayout>
+                                </FlexLayout>
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                </Border.GestureRecognizers>
+                            </Border>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <VerticalStackLayout Grid.Row="3"
+                                 Spacing="10">
+                <Border MaximumHeightRequest="2"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource White}, 
+                                                          Dark='#141c1c'}" />
+
+                <FlexLayout Direction="Row"
+                            Margin="10, 0"
+                            JustifyContent="SpaceBetween">
+                    <HorizontalStackLayout>
+                        <Label Text="Valor Total: "
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Light={StaticResource Gray600}, 
+                                                           Dark={StaticResource White}}" />
+                        <Label Text="{Binding TotalPrice, StringFormat='{0:C2}'}"
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Light={StaticResource Gray600}, 
+                                                           Dark={StaticResource White}}" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout>
+                        <Label Text="Quantidade: "
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Light={StaticResource Gray600}, 
+                                                           Dark={StaticResource White}}" />
+                        <Label Text="{Binding TotalAmount, StringFormat='{0:F2}'}"
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Light={StaticResource Gray600}, 
+                                                           Dark={StaticResource White}}" />
+                    </HorizontalStackLayout>
+                </FlexLayout>
+            </VerticalStackLayout>
+        </Grid>
+
+        <Button x:Name="NewItem_Button"
+                AbsoluteLayout.LayoutBounds=".5,.98,80,80"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                WidthRequest="60"
+                HeightRequest="60"
+                Padding="10"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, 
+                                                  Dark={StaticResource PrimaryDark}}"
+                CornerRadius="12"
+                Clicked="NewItem_Button_Clicked">
+            <Button.ImageSource>
+                <FileImageSource File="plus.png" />
+            </Button.ImageSource>
+            <Button.Shadow>
+                <Shadow Brush="{AppThemeBinding Light={StaticResource Gray500}}"
+                        Offset="2,4"
+                        Opacity="0.8"
+                        Radius="8" />
+            </Button.Shadow>
+        </Button>
+    </AbsoluteLayout>
+</ContentPage>

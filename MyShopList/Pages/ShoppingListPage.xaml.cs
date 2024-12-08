@@ -16,6 +16,16 @@ public partial class ShoppingListPage : ContentPage
         BindingContext = _shoppingListViewModel = viewModel;
     }
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (_shoppingListViewModel.UpdateScreen == 0)
+        {
+            _shoppingListViewModel.LoadListsCommand.Execute(null);
+        }
+    }
+
     private async void SwipeItem_Clicked(object sender, EventArgs e)
     {
         var list = ((SwipeItem)sender).BindingContext as ShoppingList;

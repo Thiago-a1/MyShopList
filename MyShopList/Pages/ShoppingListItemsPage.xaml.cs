@@ -59,4 +59,14 @@ public partial class ShoppingListItemsPage : ContentPage
             await _shoppingListItemsViewModel.DeleteItem(item.Id);
         }
     }
+
+    private async void MarkAsCompleted_Button_Clicked(object sender, EventArgs e)
+    {
+        var result = await DisplayAlert("Confimação", "Tem certeza que deseja Finalizar esta compra ?", "Confirmar", "Cancelar");
+
+        if (result)
+        {
+            await _shoppingListItemsViewModel.MarkListAsCompleted();
+        }
+    }
 }

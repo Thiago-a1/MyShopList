@@ -7,5 +7,6 @@ internal interface IShoppingListService
     Task<ShoppingList> CreateList(ShoppingList shoppingList);
     Task<ShoppingList> UpdateList(ShoppingList shoppingList);
     Task<bool> DeleteList(Guid id);
+    Task<bool> SetListAsCompleted(Guid listId, decimal totalAmount, decimal totalPrice);
 }
 

@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MyShopList.Services;
+using MyShopList.Sevices;
 using ShopList.Utils;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -11,6 +12,7 @@ namespace MyShopList.Models.ViewModels;
 public partial class ShoppingListItemsViewModel : ObservableObject
 {
     private readonly IShoppingListItemsService _shoppingListItemsService;
+    private readonly IShoppingListService _shoppingListService;
 
     //[ObservableProperty]
     //private bool _isUpdate = false;
@@ -36,6 +38,7 @@ public partial class ShoppingListItemsViewModel : ObservableObject
     public ShoppingListItemsViewModel()
     {
         _shoppingListItemsService = ServiceHelper.GetService<IShoppingListItemsService>();
+        _shoppingListService = ServiceHelper.GetService<IShoppingListService>();
 
         ListItems.CollectionChanged += OnCollectionChanged;
     }
@@ -151,4 +154,43 @@ public partial class ShoppingListItemsViewModel : ObservableObject
             await AppShell.DysplaySnackBar("Erro ao excluir o item.", "Error");
         }
     }
+
+    [RelayCommand]
+    public async Task MarkListAsCompleted()
+    {
+        try
+        {
+            var result = await _shoppingListService.SetListAsCompleted(ShoppingList.Id, TotalAmount, TotalPrice);
+
+            if (result == true)
+            {
+                Dictionary<string, object> UpdateScreen = new Dictionary<string, object>
+                {
+                    { "UpdateScreen", 0 }
+                };
+
+                await Shell.Current.GoToAsync("../", true, UpdateScreen);
+
+                await AppShell.DysplaySnackBar("Compra Finalizada.", "Success");
+            }
+        }
+        catch (Exception Error)
+        {
+            Console.WriteLine(Error.Message);
+
+            await AppShell.DysplaySnackBar("Erro ao finalizar compra.", "Error");
+        }
+    }
+
+    [RelayCommand]
+    public static async Task BackButton()
+    {
+        Dictionary<string, object> UpdateScreen = new Dictionary<string, object>
+        {
+            { "UpdateScreen", 1 }
+        };
+
+        await Shell.Current.GoToAsync("../", true, UpdateScreen);
+    }
+
 }

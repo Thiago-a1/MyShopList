@@ -5,9 +5,14 @@ using ShopList.Utils;
 using System.Collections.ObjectModel;
 
 namespace MyShopList.Models.ViewModels;
+
+[QueryProperty(nameof(UpdateScreen), "UpdateScreen")]
 public partial class ShoppingListViewModel : ObservableObject
 {
     private readonly IShoppingListService _shoppingListService;
+
+    [ObservableProperty]
+    private int _updateScreen = 1;
 
     [ObservableProperty]
     private bool _isLoading = false;

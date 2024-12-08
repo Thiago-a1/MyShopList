@@ -43,11 +43,13 @@ public class ShoppingListService : IShoppingListService
 
     public async Task<bool> DeleteList(Guid id)
     {
-        var findedList = _context.ShoppingLists.FirstOrDefaultAsync(x => x.Id == id);
+        var findedList = await _context.ShoppingLists.FirstOrDefaultAsync(x => x.Id == id);
+        var findedListItems = await _context.ShoppingListItems.Where(x => x.ShoppingList_Id == id).ToListAsync();
 
         if (findedList != null)
         {
-            _context.Remove(findedList);
+            _context.ShoppingLists.Remove(findedList);
+            _context.ShoppingListItems.RemoveRange(findedListItems);
             await _context.SaveChangesAsync();
 
             return true;
@@ -59,5 +61,24 @@ public class ShoppingListService : IShoppingListService
     public Task<ShoppingList> UpdateList(ShoppingList shoppingList)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<bool> SetListAsCompleted(Guid listId, decimal totalAmount, decimal totalPrice)
+    {
+        var findedList = await _context.ShoppingLists.FirstOrDefaultAsync(x => x.Id == listId);
+
+        if (findedList != null)
+        {
+            findedList.Completed_At = DateTime.Now;
+            findedList.IsCompleted = true;
+            findedList.TotalAmount = totalAmount;
+            findedList.TotalPrice = totalPrice;
+
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        return false;
     }
 }

@@ -6,6 +6,10 @@
              x:Class="MyShopList.Pages.ShoppingListItemsPage"
              x:DataType="vm:ShoppingListItemsViewModel">
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackButtonCommand}" />
+    </Shell.BackButtonBehavior>
+
     <Shell.TitleView>
         <FlexLayout JustifyContent="SpaceBetween"
                     AlignItems="Center">
@@ -33,7 +37,8 @@
                 </Label>
             </VerticalStackLayout>
 
-            <Button Text="Finalizar compra"
+            <Button x:Name="MarkAsCompleted_Button"
+                    Text="Finalizar compra"
                     FontAttributes="Bold"
                     BackgroundColor="{AppThemeBinding Light={StaticResource Primary},
                                                       Dark={StaticResource PrimaryDark}}"
@@ -41,7 +46,9 @@
                     HeightRequest="40"
                     Margin="0,0,2,0"
                     Padding="0"
-                    CornerRadius="8" />
+                    CornerRadius="8"
+                    IsEnabled="{Binding ShoppingList.IsCompleted, Converter={StaticResource InvertedBoolConverter}}"
+                    Clicked="MarkAsCompleted_Button_Clicked"/>
         </FlexLayout>
     </Shell.TitleView>
 
@@ -73,7 +80,9 @@
                 <CollectionView.ItemTemplate>
 
                     <DataTemplate x:DataType="{x:Type models:ShoppingListItem}">
-                        <SwipeView IsEnabled="{Binding Source={x:Reference AncestorCollectionView}, Path=BindingContext.ShoppingList_Complete, Converter={StaticResource InvertedBoolConverter}}">
+                        <SwipeView IsEnabled="{Binding Source={x:Reference AncestorCollectionView}, 
+                                                       Path=BindingContext.ShoppingList.IsCompleted, 
+                                                       Converter={StaticResource InvertedBoolConverter}}">
                             <SwipeView.RightItems>
                                 <SwipeItem BackgroundColor="Transparent"
                                            Clicked="SwipeItem_Clicked">
@@ -172,6 +181,7 @@
                 Padding="10"
                 BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, 
                                                   Dark={StaticResource PrimaryDark}}"
+                IsEnabled="{Binding ShoppingList.IsCompleted, Converter={StaticResource InvertedBoolConverter}}"
                 CornerRadius="12"
                 Clicked="NewItem_Button_Clicked">
             <Button.ImageSource>

@@ -39,6 +39,7 @@
 
             <Button x:Name="MarkAsCompleted_Button"
                     Text="Finalizar compra"
+                    TextColor="{StaticResource White}"
                     FontAttributes="Bold"
                     BackgroundColor="{AppThemeBinding Light={StaticResource Primary},
                                                       Dark={StaticResource PrimaryDark}}"
@@ -84,7 +85,7 @@
                                                        Path=BindingContext.ShoppingList.IsCompleted, 
                                                        Converter={StaticResource InvertedBoolConverter}}">
                             <SwipeView.RightItems>
-                                <SwipeItem BackgroundColor="Transparent"
+                                <SwipeItem BackgroundColor="{StaticResource DarkRed}"
                                            Clicked="SwipeItem_Clicked">
                                     <SwipeItem.IconImageSource>
                                         <FileImageSource File="delete.png" />
@@ -95,9 +96,8 @@
                             <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, 
                                                                       Dark={StaticResource Gray600}}"
                                     Padding="8"
-                                    Margin="2"
-                                    StrokeThickness="{AppThemeBinding Light='1', Dark='0'}"
-                                    StrokeShape="RoundRectangle 4">
+                                    Margin="-1, 1"
+                                    StrokeThickness="0">
                                 <FlexLayout Direction="Row"
                                             JustifyContent="SpaceBetween">
                                     <VerticalStackLayout WidthRequest="160"

@@ -38,10 +38,10 @@
                     <DataTemplate x:DataType="{x:Type models:ShoppingList}">
                         <SwipeView>
                             <SwipeView.RightItems>
-                                <SwipeItem BackgroundColor="Transparent"
+                                <SwipeItem BackgroundColor="{StaticResource DarkRed}"
                                            Clicked="SwipeItem_Clicked">
                                     <SwipeItem.IconImageSource>
-                                        <FileImageSource File="delete.png" />
+                                        <FileImageSource File="{AppThemeBinding Light='delete_dark.png', Dark='delete.png'}" />
                                     </SwipeItem.IconImageSource>
                                 </SwipeItem>
                             </SwipeView.RightItems>
@@ -49,9 +49,8 @@
                             <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, 
                                                                       Dark={StaticResource Gray600}}"
                                     Padding="8"
-                                    Margin="{AppThemeBinding Light='2, 0', Dark='2'}"
-                                    StrokeThickness="{AppThemeBinding Light='1', Dark='0'}"
-                                    StrokeShape="RoundRectangle 6">
+                                    Margin="-1, 1"
+                                    StrokeThickness="0">
                                 <FlexLayout Direction="Row"
                                             JustifyContent="SpaceBetween">
                                     <VerticalStackLayout WidthRequest="150"

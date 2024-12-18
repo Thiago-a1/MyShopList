@@ -40,4 +40,20 @@ public partial class ShoppingListItemsPopup : Popup
 
         _shoppingListItemsViewModel.Item = new ShoppingListItem();
     }
+
+    private void ItemAmountInput_Focused(object sender, FocusEventArgs e)
+    {
+        if (ItemAmountInput.Text == "0.00")
+        {
+            ItemAmountInput.Text = string.Empty;
+        }
+    }
+
+    private void ItemPriceInput_Focused(object sender, FocusEventArgs e)
+    {
+        if (ItemPriceInput.Text == "0.00")
+        {
+            ItemAmountInput.Text = string.Empty;
+        }
+    }
 }

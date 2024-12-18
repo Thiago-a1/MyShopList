@@ -48,6 +48,7 @@
                                         Title="Quantidade"
                                         Text="{Binding Item.Amount, StringFormat='{0:F2}'}"
                                         AllowClear="True"
+                                        Focused="ItemAmountInput_Focused"
                                         AccentColor="{AppThemeBinding Light={StaticResource Primary}, 
                                                                       Dark={StaticResource PrimaryDark}}"
                                         Keyboard="Numeric">
@@ -57,6 +58,7 @@
                                         Title="Preço Unitario"
                                         Text="{Binding Item.Price, StringFormat='{0:F2}'}"
                                         AllowClear="True"
+                                        Focused="ItemPriceInput_Focused"
                                         AccentColor="{AppThemeBinding Light={StaticResource Primary}, 
                                                                       Dark={StaticResource PrimaryDark}}"
                                         Keyboard="Numeric">

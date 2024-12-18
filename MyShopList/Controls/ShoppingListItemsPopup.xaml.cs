@@ -43,7 +43,10 @@ public partial class ShoppingListItemsPopup : Popup
 
     private void ItemAmountInput_Focused(object sender, FocusEventArgs e)
     {
-        if (ItemAmountInput.Text == "0.00")
+        if (ItemAmountInput.Text.Length <= 0)
+            return;
+
+        if (float.Parse(ItemAmountInput.Text) == 0)
         {
             ItemAmountInput.Text = string.Empty;
         }
@@ -51,9 +54,12 @@ public partial class ShoppingListItemsPopup : Popup
 
     private void ItemPriceInput_Focused(object sender, FocusEventArgs e)
     {
-        if (ItemPriceInput.Text == "0.00")
+        if (ItemPriceInput.Text.Length <= 0)
+            return;
+
+        if (float.Parse(ItemPriceInput.Text) == 0)
         {
-            ItemAmountInput.Text = string.Empty;
+            ItemPriceInput.Text = string.Empty;
         }
     }
 }

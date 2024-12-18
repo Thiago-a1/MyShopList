@@ -4,9 +4,10 @@
              xmlns:models="clr-namespace:MyShopList.Models"
              xmlns:vm="clr-namespace:MyShopList.Models.ViewModels"
              x:Class="MyShopList.Pages.ShoppingListPage"
-             x:DataType="vm:ShoppingListViewModel">
+             x:DataType="vm:ShoppingListViewModel"
+             Shell.NavBarIsVisible="False">
 
-    <Shell.TitleView>
+    <!--<Shell.TitleView>
         <Label Text="Listas de compras"
                TextColor="{AppThemeBinding Light={StaticResource Gray600}, 
                                            Dark={StaticResource White}}"
@@ -14,18 +15,39 @@
                FontAttributes="Bold"
                HorizontalOptions="Start"
                VerticalOptions="Center" />
-    </Shell.TitleView>
+    </Shell.TitleView>-->
 
     <AbsoluteLayout>
         <Grid AbsoluteLayout.LayoutBounds="0,0,1,1"
               AbsoluteLayout.LayoutFlags="All">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <FlexLayout BackgroundColor="{AppThemeBinding Light={StaticResource White}, 
+                                                          Dark={StaticResource OffBlack}}"
+                        AlignItems="Center"
+                        HeightRequest="56"
+                        Grid.Row="0">
+                <Label Text="Listas de compras"
+                       TextColor="{AppThemeBinding Light={StaticResource Gray600}, 
+                                                   Dark={StaticResource White}}"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       Margin="10,0,0,0"
+                       HorizontalOptions="Start"
+                       VerticalOptions="Center" />
+            </FlexLayout>
 
             <CollectionView x:Name="AncestorCollectionView"
                             ItemsSource="{Binding Lists}"
                             ItemsLayout="VerticalList"
                             BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, 
                                                               Dark={StaticResource Gray900}}"
-                            SelectionMode="None">
+                            SelectionMode="None"
+                            Grid.Row="1">
                 <CollectionView.EmptyView>
                     <Label Text="Nenhuma lista foi criada."
                            TextColor="{AppThemeBinding Light={StaticResource Gray500}, 

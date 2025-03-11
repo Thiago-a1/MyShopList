@@ -79,6 +79,8 @@ public partial class ShoppingListItemsViewModel : ObservableObject
     {
         try
         {
+            var item = Item;
+
             Item.ShoppingList_Id = ShoppingList.Id;
 
             var result = await _shoppingListItemsService.CreateListItem(Item);

@@ -62,4 +62,20 @@ public partial class ShoppingListItemsPopup : Popup
             ItemPriceInput.Text = string.Empty;
         }
     }
+
+    private void LessItem_Button_Clicked(object sender, EventArgs e)
+    {
+        if (float.Parse(ItemAmountInput.Text) > 0){
+            var quantidade = float.Parse(ItemAmountInput.Text) - 1;
+
+            ItemAmountInput.Text = String.Format("{0:F2}", quantidade);
+        }
+    }
+
+    private void PlusItem_Button_Clicked(object sender, EventArgs e)
+    {
+        var quantidade = float.Parse(ItemAmountInput.Text) + 1;
+
+        ItemAmountInput.Text = String.Format("{0:F2}", quantidade);
+    }
 }

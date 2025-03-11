@@ -44,7 +44,7 @@
                         <validation:RequiredValidation Message="O nome do produto é obrigatorio." />
                     </material:TextField>
 
-                    <material:TextField x:Name="ItemAmountInput"
+                    <!--<material:TextField x:Name="ItemAmountInput"
                                         Title="Quantidade"
                                         Text="{Binding Item.Amount, StringFormat='{0:F2}'}"
                                         AllowClear="True"
@@ -52,7 +52,34 @@
                                         AccentColor="{AppThemeBinding Light={StaticResource Primary}, 
                                                                       Dark={StaticResource PrimaryDark}}"
                                         Keyboard="Numeric">
-                    </material:TextField>
+                    </material:TextField>-->
+
+                    <Label Text="Quantidade" 
+                           Margin="0, -8"/>
+                    <HorizontalStackLayout VerticalOptions="Center">
+                        <Button x:Name="LessItem_Button" 
+                                Text="-"
+                                TextColor="{StaticResource White}"
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HeightRequest="46"
+                                Clicked="LessItem_Button_Clicked"/>
+                        <material:TextField x:Name="ItemAmountInput"
+                                            Text="{Binding Item.Amount, StringFormat='{0:F2}'}"
+                                            IsReadOnly="True"
+                                            Margin="8, 0"
+                                            Padding="-2, 0">
+
+                        </material:TextField>
+                        <Button x:Name="PlusItem_Button"
+                                Text="+"
+                                TextColor="{StaticResource White}"
+                                FontAttributes="Bold"
+                                FontSize="14"
+                                HeightRequest="46"
+                                Clicked="PlusItem_Button_Clicked"/>
+                    </HorizontalStackLayout>
+                    
 
                     <material:TextField x:Name="ItemPriceInput"
                                         Title="Preço Unitario"
